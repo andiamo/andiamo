@@ -1,0 +1,32 @@
+ENGLISH
+
+Andiamo is a simple tool for live drawing. It runs as a Processing sketch, and the current version (08) has been tested with Processing 2.0b7.
+Authors: Andrés Colubri (programming, concept), Marcela Rapallo (concept), collaborators are welcome...
+
+Quick use guide:
+* mouse/tablet input for drawing. Tablet pressure not used at this time, the width of the
+strokes is controlled by the speed of the mouse/pen: faster=thicker.
+* it has 4 independent drawing layers (which can be selected with keys 1, 2, 3, 4).
+* the UP/DOWN keys control the time the current line takes to fade out. Pressing UP until the maximum time factor is reached (1.0) then the line is permanent (doesn't fade out).
+* the LEFT/RIGHT keys control the global transparency (meaning of all the lines) in the selected layer.
+* the L key enabled/disables the stroke looping. This works as follows: if the line completely fades out and the looping was active then the line was created, then it will be drawn over and over again, including the fading-out. If the looping option was disabled, then the line will disappear permanently once it fades out for the first time.
+* the key C erases all the lines in the selected layer.
+* the keys Q, W, E, R, T, Y can be used to select the line texture. The filenames of the images currently used as textures as specified in the Parameters tab. They can be replaced in order to use other images (which should be included in the data folder).
+* pressing the S key, the drawing is saved in data/drawing.xml. It is not saved as an image, but as an xml file with all the information of the strokes. However, the lines that already disappeared without looping are not saved because the program removes from memory.
+* once a drawing has been saved, the program will load it automatically once it is restarted. To avoid loading it, just remove the data/drawing.xml file, rename it, or move it to another location.
+
+ESPAÑOL
+
+Andiamo es una herramienta sencilla para dibujar en vivo. Funciona como un sketch de Processing, y la última versión (08) ha sido testeada con Processing 2.0b7
+Autores: Andrés Colubri (programación, concepto), Marcela Rapallo (concepto), colaboradores son bienvenidos ...
+
+Guía rápida de uso:
+* mouse/tableta para dibujar. La presión de la tableta es ignorada de momento, el ancho de los trazos es controlado por la velocidad del mouse/lápiz: más rápido=más ancho.
+* Tiene 4 capas distintas de dibujo (las cambias con las teclas 1, 2, 3, 4).
+* con las teclas UP/DOWN regulás el tiempo que la línea tarda en desaparecer, si le das UP hasta el máximo (1.0) entonces la línea es permanente (no desaparece).
+* con las teclas LEFT/RIGHT controlás la transparencia global (o sea de todas las líneas) de la capa activa.
+* con la tecla L activás/desactivas el looping de los trazos. Esto funciona así: si la linea desaparece y el looping estaba activo cuando la creaste, la misma se repetirá una y otra vez. Si el looping no estaba activo, una vez que la linea desaparezca ya no aparecerá de nuevo.
+* con la tecla C borrás todas las líneas de la capa activa.
+* con las teclas Q, W, E, R, T, Y, elegís la textura de la linea. Fijate en el tab Parameters los nombres de los archivos de imágenes que estan siendo utilizados en estos momentos como texturas. Basta con cambiarlos para usar otras.
+* Presionando la tecla S, el dibujo es guardado en data/drawing.xml. No lo guarda como imágen, sino como xml con toda la info de los trazos Eso sí, las lineas que desaparecieron sin looping no son guardadas por que el programa las va borrando de la memoria.
+* Una vez que hay un dibujo guardado, lo carga automáticamente cuando inicias el programa de nuevo. Si no queres cargarlo, simplemente borra el archivo drawing.xml que está en data. 
