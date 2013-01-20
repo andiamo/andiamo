@@ -1,8 +1,4 @@
-// Andiamo
-// Drawing tool tool / Herramienta de dibujo en vivo
-// 
-// Version: 08
-// Authors: Andres Colubri
+// Andiamo 08
 
 import java.io.*;
 
