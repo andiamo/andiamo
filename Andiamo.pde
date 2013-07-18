@@ -1,4 +1,4 @@
-// Andiamo 08
+// Andiamo 09
 
 import java.io.*;
 
@@ -7,17 +7,18 @@ int currLayer;
 ArrayList<PImage> textures;
 int currTexture;
 Stroke currStroke;
+Stroke lastStroke;
 float fadeOutFactor;
 boolean looping;
 
 void setup() {
 //  size(displayWidth, displayHeight, P3D);
-  size(800, 600, P3D);
+  size(800, 600, P2D);
   startup();
 }
 
 void draw() {
-  background(0);
+  background(255);
   int t = millis();
   for (int i = 0; i < layers.length; i++) {
     for (Stroke stroke: layers[i]) {
@@ -31,9 +32,9 @@ void draw() {
   }
   cleanup();
   
-  if (frameCount % 600 == 0) {
-    println("fps: " + frameRate);  
-  }
+//  if (frameCount % 600 == 0) {
+//    println("fps: " + frameRate);  
+//  }
 }
 
 void startup() {
@@ -47,6 +48,9 @@ void startup() {
   textures.add(loadImage(TEXTURE_FILE5));
   textures.add(loadImage(TEXTURE_FILE6));
   
+  looping = LOOPING_AT_INIT;
+  println("Looping: " +  looping);
+  
   currTexture = 0;
   textureMode(NORMAL);
  
@@ -57,7 +61,8 @@ void startup() {
   }
   loadDrawing();
   currLayer = 0;
-  currStroke = new Stroke(0, currTexture, fadeOutFactor);
+  lastStroke = null;
+  currStroke = new Stroke(0, currTexture, lastStroke);
   println("Selected stroke layer: " + 1);  
 }
 

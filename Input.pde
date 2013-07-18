@@ -1,5 +1,18 @@
-void mousePressed() {  
-  currStroke = new Stroke(millis(), currTexture, fadeOutFactor);  
+void mousePressed() {
+  int t0 = millis();
+  
+  boolean connected = false;
+  if (lastStroke != null && t0 - lastStroke.t1 < 3000) {
+    t0 = lastStroke.t0;
+    connected = true;    
+  }
+  
+  currStroke = new Stroke(t0, currTexture, lastStroke);
+
+  if (connected) {
+    lastStroke.next = currStroke;
+  }
+  
   addPointToRibbon(mouseX, mouseY);
 }
 
@@ -13,9 +26,11 @@ void mouseReleased() {
   if (currStroke != null) {
     addPointToRibbon(mouseX, mouseY);
     currStroke.setLooping(looping);
+    currStroke.setEndTime(millis());
     if (currStroke.visible) {
       layers[currLayer].add(currStroke);
     }
+    lastStroke = currStroke;    
     currStroke = null;
   }
 }

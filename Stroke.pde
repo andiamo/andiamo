@@ -79,10 +79,9 @@ class StrokeQuad {
     visible = false;
     for (int i = 0; i < 4; i++) {
       a[i] *= ff;
-      if (10 < a[i]) {
+      if (INVISIBLE_ALPHA < a[i]) {        
         visible = true;
-      } 
-      else {
+      } else {
         a[i] = 0;
       }
     }
@@ -92,7 +91,7 @@ class StrokeQuad {
     if (visible) {
       for (int i = 0; i < 4; i++) {
         pg.tint(r[i], g[i], b[i], a[i] * ascale);
-        pg.vertex(x[i], y[i], z[i], u[i], v[i]);
+        pg.vertex(x[i], y[i], u[i], v[i]);
       }
     }
   }
@@ -112,30 +111,35 @@ class StrokeQuad {
 }
 
 class Stroke {
+  Stroke prev, next;
   ArrayList<StrokeQuad> quads;
-  int t0;  
+  int t0, t1;  
   int tex;
   boolean looping;  
   float fadeOutFact;
   float alphaScale;
     
+  int qcount;
   boolean starting;
   boolean visible;
   int loopTime;
   int lastUpdate;
 
-  Stroke(int t0, int tex, float ff) {
+  Stroke(int t0, int tex, Stroke prev) {
+    this.prev = prev;
+    next = null;
     quads = new ArrayList<StrokeQuad>();
     
     this.t0 = t0;
     this.tex = tex;      
+    
     looping = false;    
-    fadeOutFact = ff;
     alphaScale = 1;
     
     starting = true;
     visible = true;
     loopTime = -1;
+    fadeOutFact = 1;
   }
 
   Stroke(XML xml) {
@@ -191,13 +195,22 @@ class Stroke {
     looping = loop;
   }
 
+  void setEndTime(int t1) {
+    this.t1 = t1;    
+    float millisPerFrame =  1000.0 / frameRate;
+    float dt = t1 - t0;
+    int nframes = int(2 * dt / millisPerFrame);
+    fadeOutFact = exp(log(INVISIBLE_ALPHA/255) / nframes);
+    println(nframes + " " + fadeOutFact);
+  } 
+
   void addQuad(StrokeQuad quad) {
     quads.add(quad);
   } 
 
   void update(int t) {
     visible = false;
-    int qcount = 0;
+    qcount = 0;
     for (StrokeQuad quad: quads) {
       if (loopTime == -1 || quad.t - t0 <= loopTime) {  
         quad.update(fadeOutFact);
@@ -212,7 +225,7 @@ class Stroke {
       if (-1 < loopTime) {
         loopTime += t - lastUpdate;
       }
-      if (0 < qcount && !visible) {
+      if (isDrawn()) {
         // start/restart loop.
         for (StrokeQuad quad: quads) {
           quad.restoreAlpha();
@@ -222,6 +235,10 @@ class Stroke {
     }
     
     lastUpdate = t;
+  }
+  
+  boolean isDrawn() {
+    return 0 < qcount && !visible && (next == null || next.isDrawn());
   }
 
   void draw(PGraphics pg) {
