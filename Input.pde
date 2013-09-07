@@ -1,14 +1,16 @@
+int startStrokeTime;
+
 void mousePressed() {
-  int t0 = millis();
+  int t0 = startStrokeTime = millis();
   
   boolean connected = false;
-  if (lastStroke != null && t0 - lastStroke.t1 < 3000) {
+  if (lastStroke != null && t0 - lastStroke.t1 < 1000 * MAX_CONNECTED_TIME) {
     t0 = lastStroke.t0;
     connected = true;    
   }
   
   currStroke = new Stroke(t0, currTexture, lastStroke);
-
+  
   if (connected) {
     lastStroke.next = currStroke;
   }
@@ -38,6 +40,32 @@ void mouseReleased() {
 void keyPressed() {
   if (key == CODED) {
     if (keyCode == UP) {
+      LOOP_MULTIPLIER += 1; 
+      println("Loop multiplier: " + LOOP_MULTIPLIER);
+    } else if (keyCode == DOWN) {
+      LOOP_MULTIPLIER -= 1;
+      if (LOOP_MULTIPLIER < 1) LOOP_MULTIPLIER = 1;
+      println("Loop multiplier: " + LOOP_MULTIPLIER);      
+    }
+    return;
+  }  
+  
+  if (key == ' ') {
+    looping = !looping;
+    println("Looping: " + looping);
+  } else if (key == ENTER || key == RETURN) {
+    breakStroke();
+  } else if (key == DELETE || key == BACKSPACE) {      
+    for (Stroke stroke: layers[currLayer]) stroke.looping = false;
+    if (currStroke != null) currStroke.looping = false;
+    println("Delete layer");
+  }
+   
+  
+  
+  /*
+  if (key == CODED) {
+    if (keyCode == UP) {
       if (fadeOutFactor < 0.999) {
         fadeOutFactor += 0.001;
       } 
@@ -45,7 +73,9 @@ void keyPressed() {
         fadeOutFactor = 1.0;
       }
       println("Fade-out factor: " +  fadeOutFactor);
-    } 
+    }
+    else if (keyCode == DOWN) {
+     
     else if (keyCode == DOWN) {
       if (0.9 < fadeOutFactor) {
         fadeOutFactor -= 0.001;
@@ -72,10 +102,12 @@ void keyPressed() {
     if (key == 'l') {
       looping = !looping;
       println("Looping: " +  looping);
-    } else if (key == 'c') {
-      layers[currLayer].clear();
+    } else if (key == 'c') {      
+      for (Stroke stroke: layers[currLayer]) {
+        stroke.looping = false;
+      }
       if (currStroke != null) {
-        currStroke.clear();
+        currStroke.looping = false;
       }
     } else if (key == 's') {
       saveDrawing();    
@@ -110,6 +142,17 @@ void keyPressed() {
       currLayer = 3;
       println("Selected stroke layer: " + 4);
     }    
+  }
+  */
+}
+
+void breakStroke() {
+  if (lastStroke != null) {
+    println("Break stroke");     
+    lastStroke.next = null;
+  }
+  if (currStroke != null) {
+    currStroke.t0 = startStrokeTime;
   }
 }
 

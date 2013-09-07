@@ -8,7 +8,6 @@ ArrayList<PImage> textures;
 int currTexture;
 Stroke currStroke;
 Stroke lastStroke;
-float fadeOutFactor;
 boolean looping;
 
 void setup() {
@@ -54,7 +53,6 @@ void startup() {
   currTexture = 0;
   textureMode(NORMAL);
  
-  fadeOutFactor = FADEOUT_FACTOR;
   layers = new ArrayList[4];
   for (int i = 0; i < 4; i++) {
     layers[i] = new ArrayList<Stroke>();

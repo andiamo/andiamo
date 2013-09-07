@@ -1,4 +1,4 @@
-float RIBBON_WIDTH = 1.0; // Average ribbon width
+float RIBBON_WIDTH = 0.3; // Average ribbon width
 float SMOOTH_COEFF = 0.7; // Smoothing coefficient used to ease the jumps in the tracking data.
 int RIBBON_DETAIL = 5;
 float MIN_POS_CHANGE = 2;
@@ -8,8 +8,9 @@ float MIN_CTRL_CHANGE = 5;
 float TEXCOORDU_INC = 0.1;
 
 boolean LOOPING_AT_INIT = true;
-float FADEOUT_FACTOR = 0.995; // 1 = no fade-out.
-float INVISIBLE_ALPHA = 1; // Alpha at which a stroke is considered invisible
+float INVISIBLE_ALPHA = 1;    // Alpha at which a stroke is considered invisible
+float MAX_CONNECTED_TIME = 5;
+int LOOP_MULTIPLIER = 1;
 
 String DRAW_FILENAME = "drawing.xml";
 
