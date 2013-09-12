@@ -9,8 +9,10 @@ float TEXCOORDU_INC = 0.1;
 
 boolean LOOPING_AT_INIT = true;
 float INVISIBLE_ALPHA = 1;    // Alpha at which a stroke is considered invisible
-float MAX_CONNECTED_TIME = 5;
-int LOOP_MULTIPLIER = 1;
+float MAX_CONNECTED_TIME = 5; // Maximum between two consecutive strokes to be considered within the same loop
+int LOOP_MULTIPLIER = 1;      // How many times slower the loop is with respect to the original stroke
+boolean FIXED_STROKE = false;
+float DELETE_FACTOR = 0.9;
 
 String DRAW_FILENAME = "drawing.xml";
 

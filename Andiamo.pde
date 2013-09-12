@@ -1,4 +1,4 @@
-// Andiamo 09
+// Andiamo 10
 
 import java.io.*;
 
@@ -9,6 +9,7 @@ int currTexture;
 Stroke currStroke;
 Stroke lastStroke;
 boolean looping;
+boolean grouping;
 
 void setup() {
 //  size(displayWidth, displayHeight, P3D);

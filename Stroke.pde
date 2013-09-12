@@ -200,11 +200,16 @@ class Stroke {
   }
 
   void setEndTime(int t1) {
-    this.t1 = t1;    
-    float millisPerFrame =  1000.0 / frameRate;
-    float dt = t1 - t0;
-    int nframes = int(LOOP_MULTIPLIER * dt / millisPerFrame);
-    fadeOutFact = exp(log(INVISIBLE_ALPHA/255) / nframes);
+    this.t1 = t1;
+    if (FIXED_STROKE) {
+      fadeOutFact = 1;
+    } else {    
+      float millisPerFrame =  1000.0 / frameRate;
+      float dt = t1 - t0;
+      int nframes = int(LOOP_MULTIPLIER * dt / millisPerFrame);
+      fadeOutFact = exp(log(INVISIBLE_ALPHA/255) / nframes);
+    }
+   
 //    println(nframes + " " + fadeOutFact);
   } 
 

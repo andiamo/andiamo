@@ -4,7 +4,7 @@ void mousePressed() {
   int t0 = startStrokeTime = millis();
   
   boolean connected = false;
-  if (lastStroke != null && t0 - lastStroke.t1 < 1000 * MAX_CONNECTED_TIME) {
+  if (lastStroke != null && grouping && t0 - lastStroke.t1 < 1000 * MAX_CONNECTED_TIME) {
     t0 = lastStroke.t0;
     connected = true;    
   }
@@ -54,11 +54,22 @@ void keyPressed() {
     looping = !looping;
     println("Looping: " + looping);
   } else if (key == ENTER || key == RETURN) {
-    breakStroke();
+//    breakStroke();
+    grouping = !grouping;
+    println("Grouping: " + grouping);
   } else if (key == DELETE || key == BACKSPACE) {      
-    for (Stroke stroke: layers[currLayer]) stroke.looping = false;
-    if (currStroke != null) currStroke.looping = false;
+    for (Stroke stroke: layers[currLayer]) {
+      stroke.looping = false;
+      stroke.fadeOutFact = DELETE_FACTOR;
+    }
+    if (currStroke != null) {
+      currStroke.looping = false;
+      currStroke.fadeOutFact = DELETE_FACTOR;
+    }
     println("Delete layer");
+  } else if (key == TAB) {
+    FIXED_STROKE = !FIXED_STROKE;
+    println("Fixed: " + FIXED_STROKE);
   }
    
   
@@ -146,13 +157,13 @@ void keyPressed() {
   */
 }
 
-void breakStroke() {
-  if (lastStroke != null) {
-    println("Break stroke");     
-    lastStroke.next = null;
-  }
-  if (currStroke != null) {
-    currStroke.t0 = startStrokeTime;
-  }
-}
+//void breakStroke() {
+//  if (lastStroke != null) {
+//    println("Break stroke");     
+//    lastStroke.next = null;
+//  }
+//  if (currStroke != null) {
+//    currStroke.t0 = startStrokeTime;
+//  }
+//}
 
