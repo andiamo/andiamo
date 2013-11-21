@@ -46,6 +46,18 @@ void keyPressed() {
       LOOP_MULTIPLIER -= 1;
       if (LOOP_MULTIPLIER < 1) LOOP_MULTIPLIER = 1;
       println("Loop multiplier: " + LOOP_MULTIPLIER);      
+    } else if (keyCode == LEFT) {
+      for (Stroke stroke: layers[currLayer]) {
+        float ascale = stroke.getAlphaScale();
+        ascale = constrain(ascale - 0.05, 0, 1);
+        stroke.setAlphaScale(ascale);   
+      }
+    } else if (keyCode == RIGHT) {
+      for (Stroke stroke: layers[currLayer]) {
+        float ascale = stroke.getAlphaScale();
+        ascale = constrain(ascale + 0.05, 0, 1);
+        stroke.setAlphaScale(ascale);   
+      }      
     }
     return;
   }  
@@ -70,45 +82,31 @@ void keyPressed() {
   } else if (key == TAB) {
     FIXED_STROKE = !FIXED_STROKE;
     println("Fixed: " + FIXED_STROKE);
+  } else if (key == '1') {
+    currLayer = 0;
+    println("Selected stroke layer: " + 1);
+  } else if (key == '2') {
+    currLayer = 1;
+    println("Selected stroke layer: " + 2);
+  } else if (key == '3') {
+    currLayer = 2;
+    println("Selected stroke layer: " + 3);
+  } else if (key == '4') {
+    currLayer = 3;
+    println("Selected stroke layer: " + 4);
+  } else {
+    for (int i = 0; i < TEXTURE_KEYS.length; i++) {
+      if (key ==  TEXTURE_KEYS[i]) {
+        currTexture = i;
+        return;
+      }
+    } 
   }
    
   
   
   /*
-  if (key == CODED) {
-    if (keyCode == UP) {
-      if (fadeOutFactor < 0.999) {
-        fadeOutFactor += 0.001;
-      } 
-      else {
-        fadeOutFactor = 1.0;
-      }
-      println("Fade-out factor: " +  fadeOutFactor);
-    }
-    else if (keyCode == DOWN) {
-     
-    else if (keyCode == DOWN) {
-      if (0.9 < fadeOutFactor) {
-        fadeOutFactor -= 0.001;
-      } 
-      else {
-        fadeOutFactor = 0.9;
-      }
-      println("Fade-out factor: " +  fadeOutFactor);
-    } else if (keyCode == LEFT) {
-      for (Stroke stroke: layers[currLayer]) {
-        float ascale = stroke.getAlphaScale();
-        ascale = constrain(ascale - 0.05, 0, 1);
-        stroke.setAlphaScale(ascale);   
-      }
-    } else if (keyCode == RIGHT) {
-      for (Stroke stroke: layers[currLayer]) {
-        float ascale = stroke.getAlphaScale();
-        ascale = constrain(ascale + 0.05, 0, 1);
-        stroke.setAlphaScale(ascale);   
-      }      
-    }
-  } 
+
   else {
     if (key == 'l') {
       looping = !looping;

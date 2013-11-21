@@ -92,8 +92,11 @@ void addPointToRibbon(float x, float y) {
   PVector dir = new PVector(dX, dY, dZ);
   PVector nor = new PVector(nX, nY, nZ);
   oldVel = newVel;
-  float l = dir.mag();
+  float l = dir.mag();  
   newVel = ribbonsWidth / map(l, 0, 100, 1, NORM_FACTOR + 0.1);
+  
+//  println(tablet.getPressure());
+//  newVel = 1 + tablet.getPressure() * NORM_FACTOR;
 
 //  dir.normalize();
 //    PMatrix3D rmat = new PMatrix3D();

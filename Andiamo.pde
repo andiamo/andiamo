@@ -1,6 +1,9 @@
-// Andiamo 10
+// Andiamo 11
 
 import java.io.*;
+
+//import codeanticode.tablet.*;
+//Tablet tablet;
 
 ArrayList<Stroke>[] layers;
 int currLayer;
@@ -14,11 +17,13 @@ boolean grouping;
 void setup() {
 //  size(displayWidth, displayHeight, P3D);
   size(800, 600, P2D);
+  frameRate(180);
+  smooth(8);
   startup();
 }
 
 void draw() {
-  background(255);
+  background(0);
   int t = millis();
   for (int i = 0; i < layers.length; i++) {
     for (Stroke stroke: layers[i]) {
@@ -38,18 +43,18 @@ void draw() {
 }
 
 void startup() {
+  //tablet = new Tablet(this); 
   initRibbons();
-  textures = new ArrayList<PImage>();
-  
-  textures.add(loadImage(TEXTURE_FILE1));
-  textures.add(loadImage(TEXTURE_FILE2));
-  textures.add(loadImage(TEXTURE_FILE3));
-  textures.add(loadImage(TEXTURE_FILE4));
-  textures.add(loadImage(TEXTURE_FILE5));
-  textures.add(loadImage(TEXTURE_FILE6));
+  textures = new ArrayList<PImage>();  
+  for (int i = 0; i < TEXTURE_FILES.length; i++) {
+    textures.add(loadImage(TEXTURE_FILES[i]));    
+  }
   
   looping = LOOPING_AT_INIT;
   println("Looping: " +  looping);
+  
+  grouping = false;
+  println("Gouping: " +  grouping);
   
   currTexture = 0;
   textureMode(NORMAL);

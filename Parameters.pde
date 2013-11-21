@@ -1,4 +1,4 @@
-float RIBBON_WIDTH = 0.3; // Average ribbon width
+float RIBBON_WIDTH = 0.8; // Average ribbon width
 float SMOOTH_COEFF = 0.7; // Smoothing coefficient used to ease the jumps in the tracking data.
 int RIBBON_DETAIL = 5;
 float MIN_POS_CHANGE = 2;
@@ -9,17 +9,35 @@ float TEXCOORDU_INC = 0.1;
 
 boolean LOOPING_AT_INIT = true;
 float INVISIBLE_ALPHA = 1;    // Alpha at which a stroke is considered invisible
-float MAX_CONNECTED_TIME = 5; // Maximum between two consecutive strokes to be considered within the same loop
+float MAX_GROUP_TIME = 5;     // Maximum between two consecutive strokes to be considered within the same loop
 int LOOP_MULTIPLIER = 1;      // How many times slower the loop is with respect to the original stroke
-boolean FIXED_STROKE = false;
+boolean FIXED_STROKE = false; // The strokes don't fade out if true.
 float DELETE_FACTOR = 0.9;
 
 String DRAW_FILENAME = "drawing.xml";
 
-String TEXTURE_FILE1 = "line00/02.png";
-String TEXTURE_FILE2 = "line02/01.png";
-String TEXTURE_FILE3 = "line02/02.png";
-String TEXTURE_FILE4 = "line03/01.png";
-String TEXTURE_FILE5 = "line03/02.png";
-String TEXTURE_FILE6 = "line04/01.png";
+String[] TEXTURE_FILES = {
+  "line00/01.png",
+  "line00/02.png",
+  "line01/01.png",
+  "line01/02.png",    
+  "line02/01.png",
+  "line02/02.png",
+  "line03/01.png",
+  "line03/02.png",
+  "line04/01.png",
+  "line04/02.png"
+};
 
+char[] TEXTURE_KEYS = {
+  'q',
+  'Q',
+  'w',
+  'W',    
+  'e',
+  'E',
+  'r',
+  'R',
+  't',
+  'T'  
+};
