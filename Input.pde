@@ -4,7 +4,7 @@ void mousePressed() {
   int t0 = startStrokeTime = millis();
   
   boolean connected = false;
-  if (lastStroke != null && grouping && t0 - lastStroke.t1 < 1000 * MAX_CONNECTED_TIME) {
+  if (lastStroke != null && grouping && t0 - lastStroke.t1 < 1000 * MAX_GROUP_TIME) {
     t0 = lastStroke.t0;
     connected = true;    
   }
