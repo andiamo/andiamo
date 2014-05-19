@@ -92,10 +92,15 @@ class StrokeQuad {
   }
 
   void draw(PGraphics pg, float ascale) {
-    if (visible) {
-      for (int i = 0; i < 4; i++) {
-        pg.tint(r[i], g[i], b[i], a[i] * ascale);
-        pg.vertex(x[i], y[i], u[i], v[i]);
+    if (visible) {      
+      for (int i = 0; i < 4; i++) {        
+        if (USE_TEXTURES) {
+          pg.tint(r[i], g[i], b[i], a[i] * ascale);
+          pg.vertex(x[i], y[i], u[i], v[i]);
+        } else {
+          pg.fill(r[i], g[i], b[i], a[i] * ascale);
+          pg.vertex(x[i], y[i]);          
+        } 
       }
     }
   }
@@ -254,7 +259,9 @@ class Stroke {
     if (visible) {
       pg.beginShape(QUADS);
       pg.noStroke();
-      pg.texture(textures.get(tex));
+      if (USE_TEXTURES) {
+        pg.texture(textures.get(tex));
+      }
       for (StrokeQuad quad: quads) {
         if (loopTime == -1 || quad.t - t0 <= loopTime) {        
           quad.draw(pg, alphaScale);

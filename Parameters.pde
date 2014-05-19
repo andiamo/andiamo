@@ -16,6 +16,8 @@ float DELETE_FACTOR = 0.9;
 
 String DRAW_FILENAME = "drawing.xml";
 
+boolean USE_TEXTURES = true;
+
 String[] TEXTURE_FILES = {
   "line00/01.png",
   "line00/02.png",

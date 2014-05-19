@@ -1,4 +1,4 @@
-// Andiamo 11
+// Andiamo 12
 
 import java.io.*;
 
@@ -15,8 +15,10 @@ boolean looping;
 boolean grouping;
 
 void setup() {
-//  size(displayWidth, displayHeight, P3D);
-  size(800, 600, P2D);
+  String RENDERER = JAVA2D;
+  if (USE_TEXTURES) RENDERER = P2D;
+//  size(displayWidth, displayHeight, RENDERER);
+  size(800, 600, RENDERER);
   frameRate(180);
   smooth(8);
   startup();
