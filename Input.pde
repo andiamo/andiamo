@@ -82,6 +82,8 @@ void keyPressed() {
   } else if (key == TAB) {
     FIXED_STROKE = !FIXED_STROKE;
     println("Fixed: " + FIXED_STROKE);
+  } else if (key == 's') {
+   saveDrawing();        
   } else if (key == '1') {
     currLayer = 0;
     println("Selected stroke layer: " + 1);
