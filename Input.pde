@@ -9,7 +9,7 @@ void mousePressed() {
     connected = true;    
   }
   
-  currStroke = new Stroke(t0, dissapearing, FIXED_STROKE, currTexture, lastStroke);
+  currStroke = new Stroke(t0, dissapearing, fixed, currTexture, lastStroke);
   
   if (connected) {
     lastStroke.next = currStroke;
@@ -82,8 +82,8 @@ void keyPressed() {
     }
     println("Delete layer");
   } else if (key == TAB) {
-    FIXED_STROKE = !FIXED_STROKE;
-    println("Fixed: " + FIXED_STROKE);
+    fixed = !fixed;
+    println("Fixed: " + fixed);
   } else if (key == 's') {
    saveDrawing();        
   } else if (key == '1') {

@@ -9,11 +9,11 @@ float TEXCOORDU_INC = 0.1;
 
 boolean LOOPING_AT_INIT = true;       // Looping on/off when the program starts
 boolean DISSAPEARING_AT_INIT = false; // Dissapearing stroke (while drawing) on/off when the program starts
+boolean FIXED_STROKE_AT_INIT = false; // The strokes don't fade out if true.
 
 float INVISIBLE_ALPHA = 1;    // Alpha at which a stroke is considered invisible
 float MAX_GROUP_TIME = 5;     // Maximum between two consecutive strokes to be considered within the same loop
 int LOOP_MULTIPLIER = 1;      // How many times slower the loop is with respect to the original stroke
-boolean FIXED_STROKE = false; // The strokes don't fade out if true.
 float DELETE_FACTOR = 0.9;
 
 String DRAW_FILENAME = "drawing.xml";
