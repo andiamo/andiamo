@@ -9,7 +9,7 @@ void mousePressed() {
     connected = true;    
   }
   
-  currStroke = new Stroke(t0, currTexture, lastStroke);
+  currStroke = new Stroke(t0, dissapearing, FIXED_STROKE, currTexture, lastStroke);
   
   if (connected) {
     lastStroke.next = currStroke;
@@ -58,6 +58,9 @@ void keyPressed() {
         ascale = constrain(ascale + 0.05, 0, 1);
         stroke.setAlphaScale(ascale);   
       }      
+    } else if (keyCode == CONTROL) {
+      dissapearing = !dissapearing;
+      println("Dissapearing lines: " + dissapearing);
     }
     return;
   }  
@@ -66,7 +69,6 @@ void keyPressed() {
     looping = !looping;
     println("Looping: " + looping);
   } else if (key == ENTER || key == RETURN) {
-//    breakStroke();
     grouping = !grouping;
     println("Grouping: " + grouping);
   } else if (key == DELETE || key == BACKSPACE) {      
@@ -103,67 +105,7 @@ void keyPressed() {
         return;
       }
     } 
-  }
-   
-  
-  
-  /*
-
-  else {
-    if (key == 'l') {
-      looping = !looping;
-      println("Looping: " +  looping);
-    } else if (key == 'c') {      
-      for (Stroke stroke: layers[currLayer]) {
-        stroke.looping = false;
-      }
-      if (currStroke != null) {
-        currStroke.looping = false;
-      }
-    } else if (key == 's') {
-      saveDrawing();    
-    } else if (key == 'q') {  
-      currTexture = 0;
-      println("Selected texture: " + 1);
-    } else if (key == 'w') {
-      currTexture = 1;
-      println("Selected texture: " + 2);
-    } else if (key == 'e') {
-      currTexture = 2;
-      println("Selected texture: " + 3);
-    } else if (key == 'r') {  
-      currTexture = 3;
-      println("Selected texture: " + 4);
-    } else if (key == 't') {
-      currTexture = 4;
-      println("Selected texture: " + 5);
-    } else if (key == 'y') {  
-      currTexture = 5;
-      println("Selected texture: " + 6);
-    } else if (key == '1') {
-      currLayer = 0;
-      println("Selected stroke layer: " + 1);
-    } else if (key == '2') {
-      currLayer = 1;
-      println("Selected stroke layer: " + 2);
-    } else if (key == '3') {
-      currLayer = 2;
-      println("Selected stroke layer: " + 3);
-    } else if (key == '4') {
-      currLayer = 3;
-      println("Selected stroke layer: " + 4);
-    }    
-  }
-  */
+  }   
 }
 
-//void breakStroke() {
-//  if (lastStroke != null) {
-//    println("Break stroke");     
-//    lastStroke.next = null;
-//  }
-//  if (currStroke != null) {
-//    currStroke.t0 = startStrokeTime;
-//  }
-//}
 

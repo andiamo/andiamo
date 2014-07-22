@@ -7,7 +7,9 @@ float NORM_FACTOR = 5; // This factor allows to normalize ribbon width with resp
 float MIN_CTRL_CHANGE = 5;
 float TEXCOORDU_INC = 0.1;
 
-boolean LOOPING_AT_INIT = true;
+boolean LOOPING_AT_INIT = true;       // Looping on/off when the program starts
+boolean DISSAPEARING_AT_INIT = false; // Dissapearing stroke (while drawing) on/off when the program starts
+
 float INVISIBLE_ALPHA = 1;    // Alpha at which a stroke is considered invisible
 float MAX_GROUP_TIME = 5;     // Maximum between two consecutive strokes to be considered within the same loop
 int LOOP_MULTIPLIER = 1;      // How many times slower the loop is with respect to the original stroke

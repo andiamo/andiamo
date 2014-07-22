@@ -12,6 +12,7 @@ int currTexture;
 Stroke currStroke;
 Stroke lastStroke;
 boolean looping;
+boolean dissapearing;
 boolean grouping;
 
 void setup() {
@@ -55,6 +56,9 @@ void startup() {
   looping = LOOPING_AT_INIT;
   println("Looping: " +  looping);
   
+  dissapearing = DISSAPEARING_AT_INIT;
+  println("Dissapearing: " +  looping);
+  
   grouping = false;
   println("Gouping: " +  grouping);
   
@@ -68,7 +72,7 @@ void startup() {
   loadDrawing();
   currLayer = 0;
   lastStroke = null;
-  currStroke = new Stroke(0, currTexture, lastStroke);
+  currStroke = new Stroke(0, dissapearing, FIXED_STROKE, currTexture, lastStroke);
   println("Selected stroke layer: " + 1);  
 }
 

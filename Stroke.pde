@@ -75,20 +75,16 @@ class StrokeQuad {
     }
   }
 
-  void update(float ff, boolean all) {
-    //if (all) {
-      visible = false;
-      for (int i = 0; i < 4; i++) {
-        a[i] *= ff;
-        if (INVISIBLE_ALPHA < a[i]) {        
-          visible = true;
-        } else {
-          a[i] = 0;
-        }
-      }     
-//    } else {
-//      visible = true;
-//    }      
+  void update(float ff) {
+    visible = false;
+    for (int i = 0; i < 4; i++) {
+      a[i] *= ff;
+      if (INVISIBLE_ALPHA < a[i]) {        
+        visible = true;
+      } else {
+        a[i] = 0;
+      }
+    }     
   }
 
   void draw(PGraphics pg, float ascale) {
@@ -101,7 +97,7 @@ class StrokeQuad {
           pg.fill(r[i], g[i], b[i], a[i] * ascale);
           pg.vertex(x[i], y[i]);          
         } 
-      }
+      }      
     }
   }
   
@@ -124,7 +120,8 @@ class Stroke {
   ArrayList<StrokeQuad> quads;
   int t0, t1;  
   int tex;
-  boolean looping;  
+  boolean looping;
+  float fadeOutFact0;  
   float fadeOutFact;
   float alphaScale;
     
@@ -133,8 +130,11 @@ class Stroke {
   boolean visible;
   int loopTime;
   int lastUpdate;
+  
+  boolean fixed;
+  boolean dissapearing;
 
-  Stroke(int t0, int tex, Stroke prev) {
+  Stroke(int t0, boolean dissapearing, boolean fixed, int tex, Stroke prev) {
     this.prev = prev;
     next = null;
     quads = new ArrayList<StrokeQuad>();
@@ -149,6 +149,9 @@ class Stroke {
     visible = true;
     loopTime = -1;
     fadeOutFact = 1;
+    
+    this.dissapearing = dissapearing;
+    this.fixed = fixed;
   }
 
   Stroke(XML xml) {
@@ -206,16 +209,15 @@ class Stroke {
 
   void setEndTime(int t1) {
     this.t1 = t1;
-    if (FIXED_STROKE) {
+    if (fixed) {
       fadeOutFact = 1;
     } else {    
       float millisPerFrame =  1000.0 / frameRate;
       float dt = t1 - t0;
       int nframes = int(LOOP_MULTIPLIER * dt / millisPerFrame);
       fadeOutFact = exp(log(INVISIBLE_ALPHA/255) / nframes);
+      fadeOutFact0 = fadeOutFact;
     }
-   
-//    println(nframes + " " + fadeOutFact);
   } 
 
   void addQuad(StrokeQuad quad) {
@@ -227,24 +229,28 @@ class Stroke {
     qcount = 0;
     for (StrokeQuad quad: quads) {
       if (loopTime == -1 || quad.t - t0 <= loopTime) {  
-        quad.update(fadeOutFact, qcount >= quads.size());
+        quad.update(fadeOutFact);
         qcount++;
         if (quad.visible) {
           visible = true;
         }
       }
-    }
-
+    } 
+     
     if (looping) {
       if (-1 < loopTime) {
         loopTime += t - lastUpdate;
-      }
+      }      
       if (isDrawn()) {
         // start/restart loop.
+        if (!dissapearing) fadeOutFact = 1;
         for (StrokeQuad quad: quads) {
           quad.restoreAlpha();
         }      
         loopTime = 0;
+      }
+      if (t1 - t0 < loopTime) {
+        fadeOutFact = fadeOutFact0;
       }
     }
     
