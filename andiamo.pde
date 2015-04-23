@@ -16,11 +16,24 @@ boolean fixed;
 boolean dissapearing;
 boolean grouping;
 
+/**
+ * Sets the sketch in fullscreen
+ * @return true
+ */
+boolean sketchFullScreen() {
+  return true;
+}
+
 void setup() {
   String RENDERER = JAVA2D;
   if (USE_TEXTURES) RENDERER = P2D;
-//  size(displayWidth, displayHeight, RENDERER);
-  size(800, 600, RENDERER);
+
+  if(sketchFullScreen()) {
+    size(displayWidth, displayHeight, RENDERER);
+  } else {
+    size(800, 600, RENDERER);
+  }
+
   frameRate(180);
   smooth(8);
   startup();
