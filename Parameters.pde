@@ -1,3 +1,9 @@
+boolean FULL_SCREEN = true;
+int RES_WIDTH = 1280;
+int RES_HEIGHT = 800;
+int DISPLAY_SCREEN = 2;
+//int DISPLAY_SCREEN = SPAN;
+
 float RIBBON_WIDTH = 0.8; // Average ribbon width
 float SMOOTH_COEFF = 0.7; // Smoothing coefficient used to ease the jumps in the tracking data.
 int RIBBON_DETAIL = 5;

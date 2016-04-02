@@ -1,4 +1,6 @@
-// Andiamo 13
+// Andiamo 14
+// Compatible with Processing 3.x
+// Uses P2D by default
 
 import java.io.*;
 
@@ -20,21 +22,14 @@ boolean grouping;
  * Sets the sketch in fullscreen
  * @return true
  */
-boolean sketchFullScreen() {
-  return true;
+void settings() {
+  if (FULL_SCREEN) fullScreen(P2D, DISPLAY_SCREEN);
+  else size(RES_WIDTH, RES_HEIGHT, P2D);
 }
 
 void setup() {
-  String RENDERER = JAVA2D;
-  if (USE_TEXTURES) RENDERER = P2D;
-
-  if(sketchFullScreen()) {
-    size(displayWidth, displayHeight, RENDERER);
-  } else {
-    size(800, 600, RENDERER);
-  }
-
   frameRate(180);
+  noCursor();
   smooth(8);
   startup();
 }
