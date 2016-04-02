@@ -42,13 +42,13 @@ String[] TEXTURE_FILES = {
 
 char[] TEXTURE_KEYS = {
   'q',
-  'Q',
   'w',
-  'W',    
   'e',
-  'E',
-  'r',
-  'R',
+  'r',    
   't',
-  'T'  
+  'a',
+  's',
+  'd',
+  'f',
+  'g'  
 };

@@ -89,9 +89,11 @@ void keyPressed() {
   //  fixed = !fixed;
   //  println("Fixed: " + fixed);
   //} 
-  else if (key == 's') {
-   saveDrawing();        
-  } else if (key == '1') {
+  //else if (key == 's') {
+  // saveDrawing();        
+  //} else 
+  
+  if (key == '1') {
     currLayer = 0;
     println("Selected stroke layer: " + 1);
   } else if (key == '2') {

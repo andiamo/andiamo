@@ -67,5 +67,13 @@ void draw() {
   line(0, mouseY, width, mouseY);
   fill(255, 150);
   text("LAYER " + (currLayer + 1), 10, 24);
+  for (int i = 0; i < textures.size(); i++) {
+    image(textures.get(i), 5, 40 + 35 * i, 30, 30);
+  }
+  noFill();
+  strokeWeight(2);
+  stroke(255, 0, 0, 150);
+  rect(5, 40 + 35 * currTexture, 30, 30);
+  strokeWeight(1);
   syphon.sendImage(canvas);
 }
