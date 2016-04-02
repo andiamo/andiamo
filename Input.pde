@@ -40,23 +40,24 @@ void mouseReleased() {
 void keyPressed() {
   if (key == CODED) {
     if (keyCode == UP) {
-      LOOP_MULTIPLIER += 1; 
-      println("Loop multiplier: " + LOOP_MULTIPLIER);
+      loopMultiplier[currLayer] += 1;
+      if (10 < loopMultiplier[currLayer]) loopMultiplier[currLayer] = 10;
+      println("Loop multiplier: " + loopMultiplier[currLayer]);
     } else if (keyCode == DOWN) {
-      LOOP_MULTIPLIER -= 1;
-      if (LOOP_MULTIPLIER < 1) LOOP_MULTIPLIER = 1;
-      println("Loop multiplier: " + LOOP_MULTIPLIER);      
+      loopMultiplier[currLayer] -= 1;
+      if (loopMultiplier[currLayer] < 1) loopMultiplier[currLayer] = 1;
+      println("Loop multiplier: " + loopMultiplier[currLayer]);      
     } else if (keyCode == LEFT) {
+      alphaScale[currLayer] -= 0.1;
+      if (alphaScale[currLayer] < 0) alphaScale[currLayer] = 0;
       for (Stroke stroke: layers[currLayer]) {
-        float ascale = stroke.getAlphaScale();
-        ascale = constrain(ascale - 0.05, 0, 1);
-        stroke.setAlphaScale(ascale);   
+        stroke.setAlphaScale(alphaScale[currLayer]);   
       }
     } else if (keyCode == RIGHT) {
-      for (Stroke stroke: layers[currLayer]) {
-        float ascale = stroke.getAlphaScale();
-        ascale = constrain(ascale + 0.05, 0, 1);
-        stroke.setAlphaScale(ascale);   
+      alphaScale[currLayer] += 0.1;
+      if (1 < alphaScale[currLayer]) alphaScale[currLayer] = 1;      
+      for (Stroke stroke: layers[currLayer]) {       
+        stroke.setAlphaScale(alphaScale[currLayer]);   
       }      
     } else if (keyCode == CONTROL) {
       dissapearing = !dissapearing;
@@ -109,11 +110,48 @@ void keyPressed() {
 }
 
 void controllerChange(int channel, int number, int value) {
-  // Receive a controllerChange
-  println();
-  println("Controller Change:");
-  println("--------");
-  println("Channel:"+channel);
-  println("Number:"+number);
-  println("Value:"+value);
+  if (2 <= number && number <= 5) {
+     int layer = number - 2;
+     loopMultiplier[layer] = int(map(value, 0, 127, 1, 10));
+     println("Loop multiplier: " + loopMultiplier[layer]);     
+  }
+  if (14 <= number && number <= 17) {
+    int layer = number - 14;
+    float scale = map(value, 0, 127, 1, 0);    
+    for (Stroke stroke: layers[layer]) {
+      stroke.setAlphaScale(scale);
+    }    
+  }
+  
+  if (number == 49) {
+    if (value == 127) {
+      looping = true;
+    } else {
+      looping = false;
+    }
+  }
+  
+   if (number == 48) {
+    if (value == 127) {
+      dissapearing = true;
+    } else {
+      dissapearing = false;
+    }
+  }    
+  
+   if (number == 46) {
+    if (value == 127) {
+      fixed = true;
+    } else {
+      fixed = false;
+    }
+  }   
+  
+   if (number == 44) {
+    if (value == 127) {
+      grouping = true;
+    } else {
+      grouping = false;
+    }
+  }   
 }

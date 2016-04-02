@@ -1,6 +1,6 @@
 boolean FULL_SCREEN = false;
-int WIN_WIDTH = 640;
-int WIN_HEIGHT = 400;
+int WIN_WIDTH = 1280;
+int WIN_HEIGHT = 800;
 int CANVAS_WIDTH = 1280;
 int CANVAS_HEIGHT = 800;
 int DISPLAY_SCREEN = 2;
@@ -15,13 +15,12 @@ float NORM_FACTOR = 5; // This factor allows to normalize ribbon width with resp
 float MIN_CTRL_CHANGE = 5;
 float TEXCOORDU_INC = 0.1;
 
-boolean LOOPING_AT_INIT = true;       // Looping on/off when the program starts
+boolean LOOPING_AT_INIT = false;       // Looping on/off when the program starts
 boolean DISSAPEARING_AT_INIT = false; // Dissapearing stroke (while drawing) on/off when the program starts
 boolean FIXED_STROKE_AT_INIT = false; // The strokes don't fade out if true.
 
 float INVISIBLE_ALPHA = 1;    // Alpha at which a stroke is considered invisible
 float MAX_GROUP_TIME = 5;     // Maximum between two consecutive strokes to be considered within the same loop
-int LOOP_MULTIPLIER = 1;      // How many times slower the loop is with respect to the original stroke
 float DELETE_FACTOR = 0.9;
 
 String DRAW_FILENAME = "drawing.xml";

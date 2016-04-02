@@ -29,7 +29,17 @@ void startup() {
   currLayer = 0;
   lastStroke = null;
   currStroke = new Stroke(0, dissapearing, fixed, currTexture, lastStroke);
-  println("Selected stroke layer: " + 1);  
+  println("Selected stroke layer: " + 1);
+  
+  loopMultiplier = new int[4];
+  for (int i = 0; i < 4; i++) {
+    loopMultiplier[i] = 1;
+  }
+  
+  alphaScale = new float[4];
+  for (int i = 0; i < 4; i++) {
+    alphaScale[i] = 1;
+  }  
 }
 
 void cleanup() {

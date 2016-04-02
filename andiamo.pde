@@ -15,6 +15,8 @@ SyphonServer syphon;
 
 PGraphics canvas;
 ArrayList<Stroke>[] layers;
+int[] loopMultiplier; // How many times faster the loop is with respect to the original stroke
+float[] alphaScale; // Alpha scaling for each layer
 int currLayer;
 ArrayList<PImage> textures;
 int currTexture;
@@ -60,5 +62,8 @@ void draw() {
   cleanup();
   canvas.endDraw();  
   image(canvas, 0, 0, WIN_WIDTH, WIN_HEIGHT);
+  stroke(255, 150);
+  line(mouseX, 0, mouseX, height);
+  line(0, mouseY, width, mouseY);
   syphon.sendImage(canvas);
 }
