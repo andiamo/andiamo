@@ -1,6 +1,6 @@
 ENGLISH
 
-Andiamo is a simple tool for live drawing. It runs as a Processing sketch, and the current version (08) has been tested with Processing 2.0b7.
+Andiamo is a simple tool for live drawing. It runs as a Processing sketch, and the current version (14) has been tested with Processing 3.0.2.
 Authors: Andrés Colubri (programming, concept), Marcela Rapallo (concept), collaborators are welcome...
 
 Quick use guide:
@@ -17,7 +17,7 @@ strokes is controlled by the speed of the mouse/pen: faster=thicker.
 
 ESPAÑOL
 
-Andiamo es una herramienta sencilla para dibujar en vivo. Funciona como un sketch de Processing, y la última versión (08) ha sido testeada con Processing 2.0b7
+Andiamo es una herramienta sencilla para dibujar en vivo. Funciona como un sketch de Processing, y la última versión (14) ha sido testeada con Processing 3.0.2
 Autores: Andrés Colubri (programación, concepto), Marcela Rapallo (concepto), colaboradores son bienvenidos ...
 
 Guía rápida de uso:
