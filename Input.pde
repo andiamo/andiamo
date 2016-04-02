@@ -38,41 +38,43 @@ void mouseReleased() {
 }
 
 void keyPressed() {
-  if (key == CODED) {
-    if (keyCode == UP) {
-      loopMultiplier[currLayer] += 1;
-      if (10 < loopMultiplier[currLayer]) loopMultiplier[currLayer] = 10;
-      println("Loop multiplier: " + loopMultiplier[currLayer]);
-    } else if (keyCode == DOWN) {
-      loopMultiplier[currLayer] -= 1;
-      if (loopMultiplier[currLayer] < 1) loopMultiplier[currLayer] = 1;
-      println("Loop multiplier: " + loopMultiplier[currLayer]);      
-    } else if (keyCode == LEFT) {
-      alphaScale[currLayer] -= 0.1;
-      if (alphaScale[currLayer] < 0) alphaScale[currLayer] = 0;
-      for (Stroke stroke: layers[currLayer]) {
-        stroke.setAlphaScale(alphaScale[currLayer]);   
-      }
-    } else if (keyCode == RIGHT) {
-      alphaScale[currLayer] += 0.1;
-      if (1 < alphaScale[currLayer]) alphaScale[currLayer] = 1;      
-      for (Stroke stroke: layers[currLayer]) {       
-        stroke.setAlphaScale(alphaScale[currLayer]);   
-      }      
-    } else if (keyCode == CONTROL) {
-      dissapearing = !dissapearing;
-      println("Dissapearing lines: " + dissapearing);
-    }
-    return;
-  }  
+  //if (key == CODED) {
+  //  if (keyCode == UP) {
+  //    loopMultiplier[currLayer] += 1;
+  //    if (10 < loopMultiplier[currLayer]) loopMultiplier[currLayer] = 10;
+  //    println("Loop multiplier: " + loopMultiplier[currLayer]);
+  //  } else if (keyCode == DOWN) {
+  //    loopMultiplier[currLayer] -= 1;
+  //    if (loopMultiplier[currLayer] < 1) loopMultiplier[currLayer] = 1;
+  //    println("Loop multiplier: " + loopMultiplier[currLayer]);      
+  //  } else if (keyCode == LEFT) {
+  //    alphaScale[currLayer] -= 0.1;
+  //    if (alphaScale[currLayer] < 0) alphaScale[currLayer] = 0;
+  //    for (Stroke stroke: layers[currLayer]) {
+  //      stroke.setAlphaScale(alphaScale[currLayer]);   
+  //    }
+  //  } else if (keyCode == RIGHT) {
+  //    alphaScale[currLayer] += 0.1;
+  //    if (1 < alphaScale[currLayer]) alphaScale[currLayer] = 1;      
+  //    for (Stroke stroke: layers[currLayer]) {       
+  //      stroke.setAlphaScale(alphaScale[currLayer]);   
+  //    }      
+  //  } else if (keyCode == CONTROL) {
+  //    dissapearing = !dissapearing;
+  //    println("Dissapearing lines: " + dissapearing);
+  //  }
+  //  return;
+  //}  
   
-  if (key == ' ') {
-    looping = !looping;
-    println("Looping: " + looping);
-  } else if (key == ENTER || key == RETURN) {
-    grouping = !grouping;
-    println("Grouping: " + grouping);
-  } else if (key == DELETE || key == BACKSPACE) {      
+  //if (key == ' ') {
+  //  looping = !looping;
+  //  println("Looping: " + looping);
+  //} else if (key == ENTER || key == RETURN) {
+  //  grouping = !grouping;
+  //  println("Grouping: " + grouping);
+  //} else 
+  
+  if (key == DELETE || key == BACKSPACE) {      
     for (Stroke stroke: layers[currLayer]) {
       stroke.looping = false;
       stroke.fadeOutFact = DELETE_FACTOR;
@@ -82,10 +84,12 @@ void keyPressed() {
       currStroke.fadeOutFact = DELETE_FACTOR;
     }
     println("Delete layer");
-  } else if (key == TAB) {
-    fixed = !fixed;
-    println("Fixed: " + fixed);
-  } else if (key == 's') {
+  } 
+  //else if (key == TAB) {
+  //  fixed = !fixed;
+  //  println("Fixed: " + fixed);
+  //} 
+  else if (key == 's') {
    saveDrawing();        
   } else if (key == '1') {
     currLayer = 0;
@@ -103,6 +107,7 @@ void keyPressed() {
     for (int i = 0; i < TEXTURE_KEYS.length; i++) {
       if (key ==  TEXTURE_KEYS[i]) {
         currTexture = i;
+        println("Selected texture: " + (i + 1));
         return;
       }
     } 
@@ -112,7 +117,7 @@ void keyPressed() {
 void controllerChange(int channel, int number, int value) {
   if (2 <= number && number <= 5) {
      int layer = number - 2;
-     loopMultiplier[layer] = int(map(value, 0, 127, 1, 10));
+     loopMultiplier[layer] = map(value, 0, 127, 1, 0.1);
      println("Loop multiplier: " + loopMultiplier[layer]);     
   }
   if (14 <= number && number <= 17) {

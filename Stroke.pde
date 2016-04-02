@@ -208,13 +208,24 @@ class Stroke {
   }
 
   void setEndTime(int t1) {
-    this.t1 = t1;
+    if (loopMultiplier[currLayer] < 1) {
+      // Rescaling time 
+      int slen = int(loopMultiplier[currLayer] * (t1 - t0));
+      for (StrokeQuad quad: quads) {
+        int qlen = int(loopMultiplier[currLayer] * (quad.t - t0));
+        quad.t = t0 + qlen;
+      }    
+      this.t1 = t0 + slen;
+    } else {
+      this.t1 = t1;
+    }
+    
     if (fixed) {
       fadeOutFact = 1;
     } else {    
       float millisPerFrame =  1000.0 / frameRate;
       float dt = t1 - t0;
-      int nframes = int(loopMultiplier[currLayer] * dt / millisPerFrame);
+      int nframes = int(dt / millisPerFrame);
       fadeOutFact = exp(log(INVISIBLE_ALPHA/255) / nframes);
       fadeOutFact0 = fadeOutFact;
     }
