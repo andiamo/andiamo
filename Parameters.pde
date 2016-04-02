@@ -1,6 +1,8 @@
-boolean FULL_SCREEN = true;
-int RES_WIDTH = 1280;
-int RES_HEIGHT = 800;
+boolean FULL_SCREEN = false;
+int WIN_WIDTH = 640;
+int WIN_HEIGHT = 400;
+int CANVAS_WIDTH = 1280;
+int CANVAS_HEIGHT = 800;
 int DISPLAY_SCREEN = 2;
 //int DISPLAY_SCREEN = SPAN;
 
