@@ -225,7 +225,7 @@ class Stroke {
     } else {    
       float millisPerFrame =  1000.0 / frameRate;
       float dt = t1 - t0;
-      int nframes = int(dt / millisPerFrame);
+      int nframes = int(loopMultiplier[currLayer] * dt / millisPerFrame);
       fadeOutFact = exp(log(INVISIBLE_ALPHA/255) / nframes);
       fadeOutFact0 = fadeOutFact;
     }
