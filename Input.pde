@@ -10,6 +10,7 @@ void mousePressed() {
   }
   
   currStroke = new Stroke(t0, dissapearing, fixed, currTexture, lastStroke);
+  currStroke.setMaxAlpha(maxAlpha);
   
   if (connected) {
     lastStroke.next = currStroke;
@@ -28,7 +29,7 @@ void mouseReleased() {
   if (currStroke != null) {
     addPointToRibbon(mouseX, mouseY);
     currStroke.setLooping(looping);
-    currStroke.setEndTime(millis());
+    currStroke.setEndTime(millis());    
     if (currStroke.visible) {
       layers[currLayer].add(currStroke);
     }
@@ -125,6 +126,14 @@ void controllerChange(int channel, int number, int value) {
       stroke.setAlphaScale(scale);
     }    
   }
+
+  // Second slider, controls alpha of stroke being drawn
+  if (number == 3) {
+    maxAlpha = map(value, 0, 127, 0, 1);
+    if (currStroke != null) {
+      currStroke.setMaxAlpha(maxAlpha);
+    }
+  }  
 
   // First knob, controls speed of all strokes in current layer
   if (number == 14) {    

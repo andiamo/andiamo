@@ -49,6 +49,8 @@ void startup() {
     alphaScale[i] = 1;
   }
   
+  maxAlpha = 1;
+  
   PFont font = createFont("Helvetica", 24);
   textFont(font);
 }

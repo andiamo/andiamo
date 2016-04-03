@@ -127,6 +127,7 @@ class Stroke {
   float fadeOutFact0;  
   float fadeOutFact;
   float alphaScale;
+  float maxAlpha;
 
   int qcount;
   boolean starting;
@@ -148,6 +149,7 @@ class Stroke {
     
     looping = false;    
     alphaScale = 1;
+    maxAlpha = 1;
     
     starting = true;
     visible = true;
@@ -163,8 +165,8 @@ class Stroke {
     tex = parseInt(xml.getChild("tex").getContent());   
     looping = parseBoolean(xml.getChild("looping").getContent());
     fadeOutFact = parseFloat(xml.getChild("fadeOutFact").getContent());
-    alphaScale = parseFloat(xml.getChild("alphaScale").getContent());
-            
+    maxAlpha = parseFloat(xml.getChild("maxAlpha").getContent());
+    
     quads = new ArrayList<StrokeQuad>();  
     XML[] children = xml.getChildren("quad");
     for (int i = 0; i < children.length; i++) {
@@ -191,9 +193,9 @@ class Stroke {
     }
   }
 
-  float getAlphaScale() {
-    return alphaScale;
-  }
+  //float getAlphaScale() {
+  //  return alphaScale;
+  //}
 
   void setAlphaScale(float s) {
     alphaScale = s;
@@ -214,6 +216,10 @@ class Stroke {
   void setSpeedMult(float mult) {
     speedMult = mult;
     updateTimes();
+  }
+
+  void setMaxAlpha(float maxa) {
+    maxAlpha = maxa;
   }
 
   void setEndTime(int t1) {
@@ -295,7 +301,7 @@ class Stroke {
       }
       for (StrokeQuad quad: quads) {
         if (loopTime == -1 || quad.t - t0 <= loopTime) {        
-          quad.draw(pg, alphaScale);
+          quad.draw(pg, alphaScale * maxAlpha);
         }
       }  
       pg.endShape();
@@ -308,7 +314,7 @@ class Stroke {
                  "<tex>" + tex + "</tex>\n" +
                  "<looping>" + looping + "</looping>\n" +
                  "<fadeOutFact>" + fadeOutFact + "</fadeOutFact>\n" +
-                 "<alphaScale>" + alphaScale + "</alphaScale>\n";
+                 "<maxAlpha>" + maxAlpha + "</maxAlpha>\n";
     for (StrokeQuad quad: quads) {
       res += quad.toXML();
     }    
