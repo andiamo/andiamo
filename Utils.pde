@@ -1,5 +1,10 @@
 void startup() {
   //tablet = new Tablet(this); 
+  syphon = new SyphonServer(this, "Andiamo Syphon Server");
+  midi = new MidiBus(this, 0, -1);
+    
+  canvas = createGraphics(CANVAS_WIDTH, CANVAS_HEIGHT, P2D);
+  
   initRibbons();
   textures = new ArrayList<PImage>();  
   for (int i = 0; i < TEXTURE_FILES.length; i++) {
@@ -20,7 +25,9 @@ void startup() {
   
   currTexture = 0;
   textureMode(NORMAL);
+  canvas.beginDraw();
   canvas.textureMode(NORMAL);
+  canvas.endDraw();
  
   layers = new ArrayList[4];
   for (int i = 0; i < 4; i++) {

@@ -38,10 +38,6 @@ void setup() {
   noCursor();  
   smooth(2);
   
-  canvas = createGraphics(CANVAS_WIDTH, CANVAS_HEIGHT, P2D);  
-  
-  syphon = new SyphonServer(this, "Andiamo Syphon Server");
-  midi = new MidiBus(this, 0, -1);
   startup();
 }
 
