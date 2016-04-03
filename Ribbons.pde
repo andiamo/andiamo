@@ -151,11 +151,11 @@ void drawRibbonStretch(BSpline spline1, BSpline spline2) {
       spline2.feval(t, Sid2Point1);
       
       StrokeQuad quad = new StrokeQuad(millis());
-      quad.setVertex(0, Sid1Point0.x, Sid1Point0.y, Sid1Point0.z, 0, uTexCoord, 255, 255, 255, 150);
-      quad.setVertex(1, Sid2Point0.x, Sid2Point0.y, Sid2Point0.z, 1, uTexCoord, 255, 255, 255, 150);
+      quad.setVertex(0, Sid1Point0.x, Sid1Point0.y, Sid1Point0.z, 0, uTexCoord, 255, 255, 255, 255);
+      quad.setVertex(1, Sid2Point0.x, Sid2Point0.y, Sid2Point0.z, 1, uTexCoord, 255, 255, 255, 255);
       updateTexCoordU();
-      quad.setVertex(2, Sid2Point1.x, Sid2Point1.y, Sid2Point1.z, 1, uTexCoord, 255, 255, 255, 150);
-      quad.setVertex(3, Sid1Point1.x, Sid1Point1.y, Sid1Point1.z, 0, uTexCoord, 255, 255, 255, 150);      
+      quad.setVertex(2, Sid2Point1.x, Sid2Point1.y, Sid2Point1.z, 1, uTexCoord, 255, 255, 255, 255);
+      quad.setVertex(3, Sid1Point1.x, Sid1Point1.y, Sid1Point1.z, 0, uTexCoord, 255, 255, 255, 255);      
       updateTexCoordU();
       currStroke.addQuad(quad);
     }    

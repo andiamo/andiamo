@@ -36,7 +36,7 @@ void settings() {
 void setup() {
   frameRate(60);
   noCursor();  
-  smooth(8);
+  smooth(2);
   
   canvas = createGraphics(CANVAS_WIDTH, CANVAS_HEIGHT, P2D);  
   

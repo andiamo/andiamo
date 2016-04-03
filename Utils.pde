@@ -20,6 +20,7 @@ void startup() {
   
   currTexture = 0;
   textureMode(NORMAL);
+  canvas.textureMode(NORMAL);
  
   layers = new ArrayList[4];
   for (int i = 0; i < 4; i++) {

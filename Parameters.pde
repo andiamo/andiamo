@@ -36,7 +36,7 @@ String[] TEXTURE_FILES = {
   "line02/02.png",
   "line03/01.png",
   "line03/02.png",
-  "line04/01.png",
+  "line04/01.png",  
   "line04/02.png"
 };
 
