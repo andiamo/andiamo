@@ -15,9 +15,10 @@ SyphonServer syphon;
 
 PGraphics canvas;
 ArrayList<Stroke>[] layers;
-float[] loopMultiplier; // How many times faster the loop is with respect to the original stroke
-float[] alphaScale; // Alpha scaling for each layer
+//float[] loopMultiplier; // How many times faster the loop is with respect to the original stroke
+//float[] alphaScale; // Alpha scaling for each layer
 float maxAlpha; // maximum alpha for current stroke 
+float fadeoutMult; // speed multiplier for stroke fadeout
 int currLayer;
 ArrayList<PImage> textures;
 int currTexture;

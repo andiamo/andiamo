@@ -11,6 +11,7 @@ void mousePressed() {
   
   currStroke = new Stroke(t0, dissapearing, fixed, currTexture, lastStroke);
   currStroke.setMaxAlpha(maxAlpha);
+  currStroke.setFadeoutMult(fadeoutMult);
   
   if (connected) {
     lastStroke.next = currStroke;
@@ -118,32 +119,40 @@ void keyPressed() {
 }
 
 void controllerChange(int channel, int number, int value) {
-  // First slider, controls alpha of all strokes in current layer
+  // First slider, controls alpha of stroke being drawn
   if (number == 2) {
-    int layer = currLayer;
+    maxAlpha = map(value, 0, 127, 0, 1);
+    if (currStroke != null) {
+      currStroke.setMaxAlpha(maxAlpha);
+    }
+  }  
+  
+  // First knob, controls fadeout speed of stroke being drawn
+  if (number == 14) {
+    fadeoutMult = map(value, 0, 127, 1, 0.1);
+    if (currStroke != null) {
+      currStroke.setFadeoutMult(fadeoutMult);
+    }    
+  }  
+  
+  // Sliders from second through fifth, control alpha of all strokes in corresponding layer
+  if (3 <= number && number <= 8) {
+    int layer = number - 3;
     float scale = map(value, 0, 127, 0, 1);    
     for (Stroke stroke: layers[layer]) {
       stroke.setAlphaScale(scale);
     }    
   }
 
-  // Second slider, controls alpha of stroke being drawn
-  if (number == 3) {
-    maxAlpha = map(value, 0, 127, 0, 1);
-    if (currStroke != null) {
-      currStroke.setMaxAlpha(maxAlpha);
-    }
-  }  
-
-  // First knob, controls speed of all strokes in current layer
-  if (number == 14) {    
-    int layer = currLayer;
+  // Knob from second through fifth, control speed of all strokes in corresponding layer
+  if (15 <= number && number <= 19) {
+    int layer = number - 15;
     float mult = map(value, 0, 127, 1, 0.1);
     for (Stroke stroke: layers[layer]) {
       stroke.setSpeedMult(mult);
     } 
   }
-  
+
   // Loop switch: enables/disables looping
   if (number == 49) {
     if (value == 127) {

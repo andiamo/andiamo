@@ -128,7 +128,8 @@ class Stroke {
   float fadeOutFact;
   float alphaScale;
   float maxAlpha;
-
+  float fadeoutMult;
+  
   int qcount;
   boolean starting;
   boolean visible;
@@ -150,6 +151,7 @@ class Stroke {
     looping = false;    
     alphaScale = 1;
     maxAlpha = 1;
+    fadeoutMult = 1;
     
     starting = true;
     visible = true;
@@ -197,10 +199,6 @@ class Stroke {
   //  return alphaScale;
   //}
 
-  void setAlphaScale(float s) {
-    alphaScale = s;
-  }
-
   boolean isVisible() {
     return visible;
   }
@@ -213,9 +211,17 @@ class Stroke {
     looping = loop;
   }
 
+  void setAlphaScale(float s) {
+    alphaScale = s;
+  }
+
   void setSpeedMult(float mult) {
     speedMult = mult;
     updateTimes();
+  }
+
+  void setFadeoutMult(float mult) {
+    fadeoutMult = mult;
   }
 
   void setMaxAlpha(float maxa) {
@@ -231,7 +237,7 @@ class Stroke {
     } else {    
       float millisPerFrame =  1000.0 / frameRate;
       float dt = t1 - t0;
-      int nframes = int(loopMultiplier[currLayer] * dt / millisPerFrame);
+      int nframes = int(fadeoutMult * dt / millisPerFrame);
       fadeOutFact = exp(log(INVISIBLE_ALPHA/255) / nframes);
       fadeOutFact0 = fadeOutFact;
     }

@@ -39,17 +39,18 @@ void startup() {
   currStroke = new Stroke(0, dissapearing, fixed, currTexture, lastStroke);
   println("Selected stroke layer: " + 1);
   
-  loopMultiplier = new float[4];
-  for (int i = 0; i < 4; i++) {
-    loopMultiplier[i] = 1;
-  }
+  //loopMultiplier = new float[4];
+  //for (int i = 0; i < 4; i++) {
+  //  loopMultiplier[i] = 1;
+  //}
   
-  alphaScale = new float[4];
-  for (int i = 0; i < 4; i++) {
-    alphaScale[i] = 1;
-  }
+  //alphaScale = new float[4];
+  //for (int i = 0; i < 4; i++) {
+  //  alphaScale[i] = 1;
+  //}
   
   maxAlpha = 1;
+  fadeoutMult = 1;
   
   PFont font = createFont("Helvetica", 24);
   textFont(font);
