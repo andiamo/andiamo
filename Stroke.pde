@@ -5,10 +5,11 @@ class StrokeQuad {
   float[] a0;
   boolean visible;
 
-  int t;
+  int t, srct;
 
   StrokeQuad(int t) {
-    this.t = t;  
+    this.t = t;
+    this.srct = t;
     x = new float[4];
     y = new float[4];
     z = new float[4];
@@ -24,6 +25,7 @@ class StrokeQuad {
   
   StrokeQuad(XML xml) {
     t = parseInt(xml.getChild("t").getContent());
+    srct = t;
     x = new float[4];
     y = new float[4];
     z = new float[4];
@@ -118,13 +120,14 @@ class StrokeQuad {
 class Stroke {
   Stroke prev, next;
   ArrayList<StrokeQuad> quads;
-  int t0, t1;  
+  float speedMult;
+  int t0, t1, srct1;  
   int tex;
   boolean looping;
   float fadeOutFact0;  
   float fadeOutFact;
   float alphaScale;
-    
+
   int qcount;
   boolean starting;
   boolean visible;
@@ -139,6 +142,7 @@ class Stroke {
     next = null;
     quads = new ArrayList<StrokeQuad>();
     
+    speedMult = 1;
     this.t0 = t0;
     this.tex = tex;      
     
@@ -207,18 +211,14 @@ class Stroke {
     looping = loop;
   }
 
+  void setSpeedMult(float mult) {
+    speedMult = mult;
+    updateTimes();
+  }
+
   void setEndTime(int t1) {
-    if (loopMultiplier[currLayer] < 1) {
-      // Rescaling time 
-      int slen = int(loopMultiplier[currLayer] * (t1 - t0));
-      for (StrokeQuad quad: quads) {
-        int qlen = int(loopMultiplier[currLayer] * (quad.t - t0));
-        quad.t = t0 + qlen;
-      }    
-      this.t1 = t0 + slen;
-    } else {
-      this.t1 = t1;
-    }
+    srct1 = t1;
+    updateTimes();
     
     if (fixed) {
       fadeOutFact = 1;
@@ -230,6 +230,20 @@ class Stroke {
       fadeOutFact0 = fadeOutFact;
     }
   } 
+  
+  void updateTimes() {
+    if (speedMult < 1) {
+      // Rescaling time 
+      int slen = int(speedMult * (srct1 - t0));
+      for (StrokeQuad quad: quads) {
+        int qlen = int(speedMult * (quad.srct - t0));
+        quad.t = t0 + qlen;
+      }    
+      this.t1 = t0 + slen;
+    } else {
+      this.t1 = srct1;
+    } 
+  }
 
   void addQuad(StrokeQuad quad) {
     quads.add(quad);

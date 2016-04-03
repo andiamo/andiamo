@@ -117,19 +117,25 @@ void keyPressed() {
 }
 
 void controllerChange(int channel, int number, int value) {
-  if (2 <= number && number <= 5) {
-     int layer = number - 2;
-     loopMultiplier[layer] = map(value, 0, 127, 1, 0.1);
-     println("Loop multiplier: " + loopMultiplier[layer]);     
-  }
-  if (14 <= number && number <= 17) {
-    int layer = number - 14;
-    float scale = map(value, 0, 127, 1, 0);    
+  // First slider, controls alpha of all strokes in current layer
+  if (number == 2) {
+    int layer = currLayer;
+    float scale = map(value, 0, 127, 0, 1);    
     for (Stroke stroke: layers[layer]) {
       stroke.setAlphaScale(scale);
     }    
   }
+
+  // First knob, controls speed of all strokes in current layer
+  if (number == 14) {    
+    int layer = currLayer;
+    float mult = map(value, 0, 127, 1, 0.1);
+    for (Stroke stroke: layers[layer]) {
+      stroke.setSpeedMult(mult);
+    } 
+  }
   
+  // Loop switch: enables/disables looping
   if (number == 49) {
     if (value == 127) {
       looping = true;
@@ -137,8 +143,21 @@ void controllerChange(int channel, int number, int value) {
       looping = false;
     }
   }
+
+  // Stop switch: enables/disables fixed lines, when enabled
+  // lines don't animate at all after being created
+  if (number == 46) {
+    if (value == 127) {
+      fixed = true;
+    } else {
+      fixed = false;
+    }
+  }  
   
-   if (number == 48) {
+  // Fast-forward switch: enables/disables dissapearing line when in loop mode,
+  // meaning that lines start fading out from the startint point before the 
+  // drawing animation ends.
+  if (number == 48) {
     if (value == 127) {
       dissapearing = true;
     } else {
@@ -146,19 +165,13 @@ void controllerChange(int channel, int number, int value) {
     }
   }    
   
-   if (number == 46) {
-    if (value == 127) {
-      fixed = true;
-    } else {
-      fixed = false;
-    }
-  }   
-  
-   if (number == 44) {
-    if (value == 127) {
-      grouping = true;
-    } else {
-      grouping = false;
-    }
+  // Record switch: enables/disables line grouping, when enabled consecutive
+  // lines are animated together. 
+  if (number == 44) {
+   if (value == 127) {
+     grouping = true;
+   } else {
+     grouping = false;
+   }
   }   
 }
