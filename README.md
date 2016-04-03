@@ -11,4 +11,6 @@ It requires the following:
 
 The libraries can be installed through the Contribution Manager in Processing.
 
-It has been tested only with the first nanoKontrol device, and the MIDI mappings hard-coded in andiamo might not work with other devices. 
+It has been tested only with the first nanoKontrol device, and the MIDI mappings hard-coded in andiamo might not work with other devices. On this controller, the mapping is as follows:
+
+
