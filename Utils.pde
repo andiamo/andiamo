@@ -1,6 +1,7 @@
 void startup() {
   //tablet = new Tablet(this); 
-  syphon = new SyphonServer(this, "Andiamo Syphon Server");
+  spout = new Spout(this);
+  spout.createSender("Spout Andiamo Sender");
   
   if (-1 < INPUT_MIDI_DEVICE) {
     MidiBus.list();

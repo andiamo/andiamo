@@ -1,14 +1,14 @@
-// Andiamo 14 with Syphon+MIDI support
+// Andiamo 15 with Spout+MIDI support
 // Compatible with Processing 3.x
 // Uses P2D by default
 
 import themidibus.*;
-import codeanticode.syphon.*;
+import spout.*;
 import java.io.*;
 
 // Devices
 MidiBus midi;
-SyphonServer syphon;
+Spout spout;
 
 PGraphics canvas;
 ArrayList<Stroke>[] layers;
@@ -70,5 +70,5 @@ void draw() {
   stroke(255, 0, 0, 150);
   rect(5, 40 + 35 * currTexture, 30, 30);
   strokeWeight(1);
-  syphon.sendImage(canvas);
+  spout.sendTexture(canvas);
 }
