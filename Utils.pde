@@ -1,7 +1,11 @@
 void startup() {
   //tablet = new Tablet(this); 
   syphon = new SyphonServer(this, "Andiamo Syphon Server");
-  midi = new MidiBus(this, 0, -1);
+  
+  if (-1 < INPUT_MIDI_DEVICE) {
+    MidiBus.list();
+    midi = new MidiBus(this, INPUT_MIDI_DEVICE, -1);
+  }
     
   canvas = createGraphics(CANVAS_WIDTH, CANVAS_HEIGHT, P2D);
   
@@ -39,15 +43,15 @@ void startup() {
   currStroke = new Stroke(0, dissapearing, fixed, currTexture, lastStroke);
   println("Selected stroke layer: " + 1);
   
-  //loopMultiplier = new float[4];
-  //for (int i = 0; i < 4; i++) {
-  //  loopMultiplier[i] = 1;
-  //}
+  loopMultiplier = new int[4];
+  for (int i = 0; i < 4; i++) {
+    loopMultiplier[i] = 0;
+  }
   
-  //alphaScale = new float[4];
-  //for (int i = 0; i < 4; i++) {
-  //  alphaScale[i] = 1;
-  //}
+  alphaScale = new int[4];
+  for (int i = 0; i < 4; i++) {
+    alphaScale[i] = 127;
+  }
   
   maxAlpha = 1;
   fadeoutMult = 1;

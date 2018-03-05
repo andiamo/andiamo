@@ -4,6 +4,7 @@ int WIN_HEIGHT = 800;
 int CANVAS_WIDTH = 1280;
 int CANVAS_HEIGHT = 800;
 int DISPLAY_SCREEN = 2;
+int INPUT_MIDI_DEVICE = -1; // Set to -1 to use keyboard
 //int DISPLAY_SCREEN = SPAN;
 
 float RIBBON_WIDTH = 0.8; // Average ribbon width

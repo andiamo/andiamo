@@ -299,4 +299,3 @@ class BSpline extends Spline {
   // Point and tangent vectors.
   float[] pt, tg;
 }
-

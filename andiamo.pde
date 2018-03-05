@@ -6,17 +6,14 @@ import themidibus.*;
 import codeanticode.syphon.*;
 import java.io.*;
 
-//import codeanticode.tablet.*;
-//Tablet tablet;
-
 // Devices
 MidiBus midi;
 SyphonServer syphon;
 
 PGraphics canvas;
 ArrayList<Stroke>[] layers;
-//float[] loopMultiplier; // How many times faster the loop is with respect to the original stroke
-//float[] alphaScale; // Alpha scaling for each layer
+int[] loopMultiplier; // How many times faster the loop is with respect to the original stroke
+int[] alphaScale; // Alpha scaling for each layer
 float maxAlpha; // maximum alpha for current stroke 
 float fadeoutMult; // speed multiplier for stroke fadeout
 int currLayer;

@@ -40,61 +40,15 @@ void mouseReleased() {
 }
 
 void keyPressed() {
-  //if (key == CODED) {
-  //  if (keyCode == UP) {
-  //    loopMultiplier[currLayer] += 1;
-  //    if (10 < loopMultiplier[currLayer]) loopMultiplier[currLayer] = 10;
-  //    println("Loop multiplier: " + loopMultiplier[currLayer]);
-  //  } else if (keyCode == DOWN) {
-  //    loopMultiplier[currLayer] -= 1;
-  //    if (loopMultiplier[currLayer] < 1) loopMultiplier[currLayer] = 1;
-  //    println("Loop multiplier: " + loopMultiplier[currLayer]);      
-  //  } else if (keyCode == LEFT) {
-  //    alphaScale[currLayer] -= 0.1;
-  //    if (alphaScale[currLayer] < 0) alphaScale[currLayer] = 0;
-  //    for (Stroke stroke: layers[currLayer]) {
-  //      stroke.setAlphaScale(alphaScale[currLayer]);   
-  //    }
-  //  } else if (keyCode == RIGHT) {
-  //    alphaScale[currLayer] += 0.1;
-  //    if (1 < alphaScale[currLayer]) alphaScale[currLayer] = 1;      
-  //    for (Stroke stroke: layers[currLayer]) {       
-  //      stroke.setAlphaScale(alphaScale[currLayer]);   
-  //    }      
-  //  } else if (keyCode == CONTROL) {
-  //    dissapearing = !dissapearing;
-  //    println("Dissapearing lines: " + dissapearing);
-  //  }
-  //  return;
-  //}  
-  
-  //if (key == ' ') {
-  //  looping = !looping;
-  //  println("Looping: " + looping);
-  //} else if (key == ENTER || key == RETURN) {
-  //  grouping = !grouping;
-  //  println("Grouping: " + grouping);
-  //} else 
-  
-  if (key == DELETE || key == BACKSPACE) {      
-    for (Stroke stroke: layers[currLayer]) {
-      stroke.looping = false;
-      stroke.fadeOutFact = DELETE_FACTOR;
-    }
-    if (currStroke != null) {
-      currStroke.looping = false;
-      currStroke.fadeOutFact = DELETE_FACTOR;
-    }
-    println("Delete layer");
-  } 
-  //else if (key == TAB) {
-  //  fixed = !fixed;
-  //  println("Fixed: " + fixed);
-  //} 
-  //else if (key == 's') {
-  // saveDrawing();        
-  //} else 
-  
+  handleBasicKeyboardInput();
+  if (INPUT_MIDI_DEVICE == -1) {
+    // Don't have MIDI controller, using keyboard for everything
+    handleFullKeyboardInput();
+  }
+}
+
+void handleBasicKeyboardInput() {
+  // Layer selection
   if (key == '1') {
     currLayer = 0;
     println("Selected stroke layer: " + 1);
@@ -107,15 +61,67 @@ void keyPressed() {
   } else if (key == '4') {
     currLayer = 3;
     println("Selected stroke layer: " + 4);
-  } else {
-    for (int i = 0; i < TEXTURE_KEYS.length; i++) {
-      if (key ==  TEXTURE_KEYS[i]) {
-        currTexture = i;
-        println("Selected texture: " + (i + 1));
-        return;
+  }
+  
+  // Texture selection
+  for (int i = 0; i < TEXTURE_KEYS.length; i++) {
+    if (key ==  TEXTURE_KEYS[i]) {
+      currTexture = i;
+      println("Selected texture: " + (i + 1));
+      return;
+    }
+  }  
+  
+  if (key == 's') {
+    saveDrawing();        
+  }  
+}
+
+void handleFullKeyboardInput() {
+  if (key == ' ') {
+    // SPACE key: enables/disables looping
+    looping = !looping;
+    println("Looping: " + looping);
+  } else if (key == ENTER || key == RETURN) {
+    // ENTER key: enables/disables line grouping, when enabled consecutive
+    // lines are animated together.    
+    grouping = !grouping;
+    println("Grouping: " + grouping);
+  } else if (key == TAB) {
+    // TAB key: enables/disables fixed lines, when enabled
+    // lines don't animate at all after being created    
+    fixed = !fixed;
+    println("Fixed: " + fixed);
+  }
+  
+  if (key == CODED) {
+    if (keyCode == UP || keyCode == DOWN) {
+      // UP and DOWN keys, control speed of all strokes in current layer
+      if (keyCode == UP && loopMultiplier[currLayer] < 127) loopMultiplier[currLayer] += 4;
+      if (keyCode == DOWN && 0 < loopMultiplier[currLayer]) loopMultiplier[currLayer] -= 4;
+      float mult = map(loopMultiplier[currLayer], 0, 127, 1, 0.1);
+      int layer = currLayer;
+      for (Stroke stroke: layers[layer]) {
+        stroke.setSpeedMult(mult);
+      } 
+    } else if (keyCode == LEFT || keyCode == RIGHT) {
+      // RIGTH and LEFT keys, control alpha of all strokes in current layer
+      if (keyCode == RIGHT && alphaScale[currLayer] < 127) alphaScale[currLayer] += 4;
+      if (keyCode == LEFT && 0 < alphaScale[currLayer]) alphaScale[currLayer] -= 4;    
+      float scale = map(alphaScale[currLayer], 0, 127, 0, 1);
+      int layer = currLayer;
+      for (Stroke stroke: layers[layer]) {
+        stroke.setAlphaScale(scale);
       }
-    } 
-  }   
+    } else if (keyCode == CONTROL) {
+      // CONTROL key: enables/disables dissapearing line when in loop mode,
+      // meaning that lines start fading out from the startint point before the 
+      // drawing animation ends.  
+      dissapearing = !dissapearing;
+      println("Dissapearing lines: " + dissapearing);
+    }
+    return;
+  }
 }
 
 void controllerChange(int channel, int number, int value) {
@@ -160,6 +166,7 @@ void controllerChange(int channel, int number, int value) {
     } else {
       looping = false;
     }
+    println("Looping: " + looping);
   }
 
   // Stop switch: enables/disables fixed lines, when enabled
@@ -170,6 +177,7 @@ void controllerChange(int channel, int number, int value) {
     } else {
       fixed = false;
     }
+    println("Fixed: " + fixed);
   }  
   
   // Fast-forward switch: enables/disables dissapearing line when in loop mode,
@@ -181,15 +189,17 @@ void controllerChange(int channel, int number, int value) {
     } else {
       dissapearing = false;
     }
+    println("Dissapearing lines: " + dissapearing);
   }    
   
   // Record switch: enables/disables line grouping, when enabled consecutive
   // lines are animated together. 
   if (number == 44) {
-   if (value == 127) {
-     grouping = true;
-   } else {
-     grouping = false;
-   }
+    if (value == 127) {
+      grouping = true;
+    } else {
+      grouping = false;
+    }
+    println("Grouping: " + grouping);
   }   
 }
