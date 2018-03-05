@@ -1,4 +1,4 @@
-// Andiamo 14 with Syphon+MIDI support
+// Andiamo 15 with Syphon+MIDI support
 // Compatible with Processing 3.x
 // Uses P2D by default
 
