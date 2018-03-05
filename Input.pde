@@ -48,6 +48,18 @@ void keyPressed() {
 }
 
 void handleBasicKeyboardInput() {
+  if (key == DELETE || key == BACKSPACE) {      
+    for (Stroke stroke: layers[currLayer]) {
+      stroke.looping = false;
+      stroke.fadeOutFact = DELETE_FACTOR;
+    }
+    if (currStroke != null) {
+      currStroke.looping = false;
+      currStroke.fadeOutFact = DELETE_FACTOR;
+    }
+    println("Delete layer");
+  }
+
   // Layer selection
   if (key == '1') {
     currLayer = 0;
