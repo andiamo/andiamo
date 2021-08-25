@@ -86,7 +86,7 @@ void startup() {
   currStroke = new Stroke(0, dissapearing, fixed, currTexture, lastStroke);
   println("Selected stroke layer: " + 1);  
   
-  movie = new Movie(this, "fondo-nubes.mov");
+  movie = new Movie(this, "fondo-nubes.mp4");
   movie.loop();  
 }
 
