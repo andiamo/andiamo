@@ -1,11 +1,15 @@
-// Andiamo 14
-// Compatible with Processing 3.x
-// Uses P2D by default
+// Andiamo 15
+// Compatible with Processing 4.x
+// Uses P2D en pantalla completa por default
+// Carga video de fondo
 
 import java.io.*;
+import processing.video.*;
 
 //import codeanticode.tablet.*;
 //Tablet tablet;
+
+Movie movie;
 
 ArrayList<Stroke>[] layers;
 int currLayer;
@@ -18,16 +22,10 @@ boolean fixed;
 boolean dissapearing;
 boolean grouping;
 
-/**
- * Sets the sketch in fullscreen
- * @return true
- */
-void settings() {
-  if (FULL_SCREEN) fullScreen(P2D, DISPLAY_SCREEN);
-  else size(RES_WIDTH, RES_HEIGHT, P2D);
-}
-
 void setup() {
+  fullScreen(P2D, DISPLAY_SCREEN);
+  //size(RES_WIDTH, RES_HEIGHT, P2D);
+  
   frameRate(180);
   noCursor();
   smooth(8);
@@ -35,7 +33,8 @@ void setup() {
 }
 
 void draw() {
-  background(0);
+  image(movie, 0, 0, width, height);
+  
   int t = millis();
   for (int i = 0; i < layers.length; i++) {
     for (Stroke stroke: layers[i]) {
@@ -86,6 +85,9 @@ void startup() {
   lastStroke = null;
   currStroke = new Stroke(0, dissapearing, fixed, currTexture, lastStroke);
   println("Selected stroke layer: " + 1);  
+  
+  movie = new Movie(this, "fondo-nubes.mov");
+  movie.loop();  
 }
 
 void cleanup() {
@@ -131,4 +133,8 @@ void saveDrawing() {
   String[] lines = split(str, "\n");
   saveStrings("data/" + DRAW_FILENAME, lines);
   println("Saved current drawing to " + DRAW_FILENAME);
+}
+
+void movieEvent(Movie m) {
+  m.read();
 }
