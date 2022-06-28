@@ -1,5 +1,5 @@
-// Andiamo 14
-// Compatible with Processing 3.x
+// Andiamo 15
+// Compatible with Processing 4.x
 // Uses P2D by default
 
 import java.io.*;
@@ -25,12 +25,12 @@ boolean grouping;
 void settings() {
   if (FULL_SCREEN) fullScreen(P2D, DISPLAY_SCREEN);
   else size(RES_WIDTH, RES_HEIGHT, P2D);
+  smooth(8);
 }
 
 void setup() {
   frameRate(180);
-  noCursor();
-  smooth(8);
+  noCursor();  
   startup();
 }
 
