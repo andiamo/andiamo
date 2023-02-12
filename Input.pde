@@ -98,6 +98,10 @@ void keyPressed() {
   } else if (key == '4') {
     currLayer = 3;
     println("Selected stroke layer: " + 4);
+  } else if (key == '[' || key == '{') {
+    ribbonsWidth = constrain(ribbonsWidth - 0.1, 0, 100);
+  } else if (key == ']' || key == '}') {
+    ribbonsWidth = constrain(ribbonsWidth + 0.1, 0, 100);   
   } else {
     for (int i = 0; i < TEXTURE_KEYS.length; i++) {
       if (key ==  TEXTURE_KEYS[i]) {
@@ -105,7 +109,5 @@ void keyPressed() {
         return;
       }
     } 
-  }   
+  }
 }
-
-
